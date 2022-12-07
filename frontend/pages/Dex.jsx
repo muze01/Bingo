@@ -336,7 +336,7 @@ const Dex = () => {
                 {/* dex connect button */}
                 <div className="connectbtn">
                   <button
-                    className=" btn btn1"
+                    className="btn btn1"
                     onClick={async () => {
                       connectWallet;
                       await getAmounts();

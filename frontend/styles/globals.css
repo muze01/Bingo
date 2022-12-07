@@ -44,14 +44,14 @@
 
   --transition: all 400ms ease;
 
-  --blob: url("../public/pics/mainblueblob.svg");
-  --blob2: url("../public/pics/blob.svg");
+  --blob: url("../public/pics/mainblueblob.png");
+  --blob2: url("../public/pics/blob.png");
 
   --header-color: hsl(205, 100%, 57%);
   --icon-color: hsl(205, 100%, 57%);
 
-  --footerline: url("../public/pics/mainblueline.svg");
-  --waves: url("../public/pics/mainblueback.svg");
+  --footerline: url("../public/pics/mainblueline.png");
+  --waves: url("../public/pics/mainblueback.png");
 
   --card-background: white;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -74,8 +74,8 @@
   --button-color: hsl(227, 90%, 16%);
   --button-hover-color: hsl(206, 90%, 16%);
 
-  --blob: url("../public/pics/mainblueblob.svg");
-  --blob2: url("../public/pics/blob.svg");
+  --blob: url("../public/pics/mainblueblob.png");
+  --blob2: url("../public/pics/blob.png");
 
   --buy-bingo: hsl(125, 67%, 44%);
 
@@ -86,8 +86,8 @@
   --abstract-color: hsl(360, 67%, 44%);
   --abstract-color2: hsl(125, 67%, 44%);
 
-  --footerline: url("../public/pics/mainblueline.svg");
-  --waves: url("../public/pics/mainblueback.svg");
+  --footerline: url("../public/pics/mainblueline.png");
+  --waves: url("../public/pics/mainblueback.png");
   --card-background: rgb(246, 249, 250);
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -107,8 +107,8 @@
 
   --text-color: #ffffffe7;
 
-  --blob2: url("../public/pics/blob.svg");
-  --blob: url("../public/pics/mainblueblob.svg");
+  --blob2: url("../public/pics/blob.png");
+  --blob: url("../public/pics/mainblueblob.png");
 
   --buy-bingo: hsl(360, 67%, 44%);
 
@@ -117,8 +117,8 @@
   --abstract-color: hsl(205, 100%, 57%);
   --abstract-color2: hsl(125, 67%, 44%);
 
-  --footerline: url("../public/pics/mainblueline.svg");
-  --waves: url("../public/pics/mainblueback.svg");
+  --footerline: url("../public/pics/mainblueline.png");
+  --waves: url("../public/pics/mainblueback.png");
   --card-background: hsl(0, 0%, 5%);
   --box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
@@ -138,8 +138,8 @@
 
   --buy-bingo: hsl(244, 100%, 50%);
 
-  --blob2: url("../public/pics/greyblob.svg");
-  --blob: url("../public/pics/maingrayblob.svg");
+  --blob2: url("../public/pics/greyblob.png");
+  --blob: url("../public/pics/maingrayblob.png");
 
   --text-color: hsl(209, 61%, 16%);
 
@@ -148,18 +148,16 @@
   --abstract-color: hsl(244, 100%, 50%);
   --abstract-color2: hsl(125, 67%, 44%);
 
-  --footerline: url("../public/pics/pinklining.svg");
-  --waves: url("../public/pics/mainpinkback.svg");
+  --footerline: url("../public/pics/pinklining.png");
+  --waves: url("../public/pics/mainpinkback.png");
   --card-background: white;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-
 ::-webkit-scrollbar {
   box-shadow: var(--color-primary) 0px 0px 5px inset;
   /* border-radius: 7px; */
   display: none;
 }
-
 * {
   margin: 0;
   padding: 0;
@@ -400,7 +398,6 @@ legend {
   margin-left: -45%;
   z-index: 5;
 }
-
 .nav-center {
   display: flex;
   align-items: center;
@@ -415,14 +412,13 @@ legend {
 }
 .nav-links a:hover {
   border: 1px solid var(--color-primary);
-  color: hsl(240, 29%, 17%);
-  border-radius: 5px;
+  /* color: hsl(240, 9%, 54%); */
+  /* border-radius: 5px; */
 }
 nav a.active {
   background-color: var(--color-primary);
   color: var(--color-bg);
 }
-
 .activeswap {
   background-color: var(--primary-variant);
   width: max-content;
@@ -527,7 +523,7 @@ section > h5 {
 
 @media screen and (max-width: 457px) {
   .nav-links a {
-    padding: 0.3rem;
+    padding: 0.5rem;
     font-size: 0.4rem;
   }
   .color-switcher > fieldset {
@@ -536,7 +532,31 @@ section > h5 {
     width: 5rem;
   }
 }
-
+@media screen and (max-width: 457px) {
+  .headerbuttons button{
+  font-size: 0.6rem;
+  }
+  .about-info {
+    margin-right: 0.35rem;
+  }
+  .marketplaceinfoimages {
+  width: 6rem;
+  margin: 0 auto;
+}
+  #community h2 {
+    font-size: 1.7rem;
+  }
+  .icons li{
+   /* width: 1rem;  */
+   padding: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .about-info {
+    padding: 0rem 1rem;
+    text-align: center;
+  }
+}
 /* landing page */
 .position {
   position: relative;
@@ -806,6 +826,7 @@ span:nth-child(12) {
   border-radius: 10px;
   padding: 1rem;
   margin-top: 1rem;
+  text-align: center;
 }
 @media screen and (min-width: 1450px) {
   .spaceup {
@@ -855,7 +876,7 @@ span:nth-child(12) {
   margin: 0 auto;
   margin-top: 4rem;
   width: 80vw;
-  height: 500px;
+  height: 560px;
   max-width: 800px;
   text-align: center;
   position: relative;
@@ -1025,6 +1046,7 @@ article.nextSlide {
   color: hsl(120, 61%, 30%);
 }
 .dexinfo h4 {
+  padding: 0 0.9rem;
   margin-top: 2rem;
   text-align: center;
 }
@@ -1102,7 +1124,7 @@ article.nextSlide {
   }
   .rewardinfo {
     /* width: 25rem; */
-    margin: 0 0.6rem;
+    margin: 0 0.8rem;
   }
 }
 
@@ -1332,9 +1354,8 @@ article.nextSlide {
   gap: 3rem;
 }
 .liquidity {
-  display: flex;
-  flex-direction: column;
-  height: 45%;
+   display: flex;
+   flex-direction: column;
   width: 25rem;
   padding: 0 3rem;
   color: hsl(209, 61%, 16%);
@@ -1344,6 +1365,7 @@ article.nextSlide {
   padding-top: 1.5rem;
   padding-bottom: 2rem;
   margin-top: 1rem;
+  /* align-items: flex-start; */
 }
 .hideliquidity {
   display: none;
@@ -1577,6 +1599,9 @@ article.nextSlide {
   .icons li {
     margin: 0.5rem;
   }
+  .imageicon {
+    width: 2rem;
+  }
 }
 
 /* market place */
@@ -1664,7 +1689,7 @@ article.nextSlide {
 }
 .marketplaceinfoimages img {
   width: 9rem;
-  margin-right: 1.5rem;
+  margin: 0 0.5rem;
 }
 .addressmarket {
   display: flex;

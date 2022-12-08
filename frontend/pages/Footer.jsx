@@ -1,12 +1,30 @@
 import React from "react";
-
+import { useGlobalContext } from "../utils/context";
 
 const Footer = () => {
+    const { backIMG, backId } = useGlobalContext();
+
   return (
     <footer>
-      <div className="footerline"></div>
-      <main className="footer">
+      <div className="footerline">
 
+        {/* footerline*/}
+          {backIMG.map((item, index) => {
+            const { color, footerLine } = item;
+            let wave = backId === color;
+            return (
+              wave && (
+                <div key={index} className="">
+                  <img src={footerLine} alt="blob1" className="footline" />
+                </div>
+              )
+            );
+          })}
+      </div>
+      {/* end of footerline */}
+
+          {/* footer section */}
+      <main className="footer">
         {/* section one */}
         <div className="sectionone">
           {/* reach us */}
@@ -111,7 +129,7 @@ const Footer = () => {
       </main>
       <div className="newunderline">
         <p>
-          donate to dev {" "}
+          donate to dev{" "}
           <small>0xfe2521C82baD4316435aF559C54cC3b0b8D9DBF3</small>
         </p>
       </div>

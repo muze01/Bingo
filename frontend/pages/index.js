@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import { useGlobalContext } from "../utils/context";
 import Navbar from "./Navbar";
 import About from "./About";
 import Community from "./Community";
@@ -11,6 +12,7 @@ import Footer from "./Footer";
 export default function Home() {
   const swiftArray = "Bingo-Token".split("");
   const bingoArray = "Community".split("");
+  const { backIMG, backId, getId } = useGlobalContext();
 
   return (
     <div className="position">
@@ -61,9 +63,22 @@ export default function Home() {
             />
           </div>
         </main>
-        {/* background waves */}
+
+        {/* waves background*/}
+        <div className="wavesection">
+          {backIMG.map((item, index) => {
+            const { color, background } = item;
+            let wave = backId === color;
+            return (
+              wave && (
+                <div key={index} className="waves">
+                  <img src={background} alt="waves" className="backwaves" />
+                </div>
+              )
+            );
+          })}
+        </div>
       </section>
-      <div className="waves"></div>
 
       {/* color switcher */}
       <aside className="switch">
@@ -75,19 +90,19 @@ export default function Home() {
             <label htmlFor="pink" className="visually-hidden">
               System
             </label>
-            <input type="radio" name="theme" id="pink" />
+            <input type="radio" name="theme" id="pink" onClick={getId} />
 
             {/* Dark */}
             <label htmlFor="dark" className="visually-hidden">
               Dark
             </label>
-            <input type="radio" name="theme" id="dark" />
+            <input type="radio" name="theme" id="dark" onClick={getId} />
 
             {/* system */}
             <label htmlFor="light" className="visually-hidden">
               System
             </label>
-            <input type="radio" name="theme" id="light" />
+            <input type="radio" name="theme" id="light" onClick={getId} />
           </fieldset>
         </form>
       </aside>

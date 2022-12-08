@@ -31,8 +31,6 @@ const people = [
 
 export default people;
 
-
-
 const chains = [
   {
     id: "0x38",
@@ -76,6 +74,28 @@ const chains = [
   },
 ];
 
+export { chains, back };
 
-export { chains };
-
+const back = [
+  {
+    color: "pink",
+    background: "./images/mainpinkback.png",
+    footerLine: "./images/pinklining.png",
+    blob: "./images/maingrayblob.png",
+    blob2: "./images/greyblob.png",
+  },
+  {
+    color: "dark",
+    background: "./images/mainblue.png",
+    footerLine: "./images/mainblueline.png",
+    blob: "./images/mainblueblob.png",
+    blob2: "./images/blob.png",
+  },
+  {
+    color: "light",
+    background: "./images/mainblue.png",
+    footerLine: "./images/mainblueline.png",
+    blob: "./images/mainblueblob.png",
+    blob2: "./images/blob.png",
+  },
+];

@@ -3,6 +3,7 @@ const AppContext = React.createContext();
 
 import { ethers } from "ethers";
 import { chains } from "../utils/data";
+import { back } from "../utils/data";
 
 const AppProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
@@ -12,6 +13,8 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [chainID, setChainID] = useState(null);
   const [txAddress, setTxAddress] = useState(null);
+  const [backIMG, setBackIMG] = useState(back);
+  const [backId, setBackId] = useState("light");
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlerts({ show, type, msg });
@@ -37,7 +40,6 @@ const AppProvider = ({ children }) => {
   };
 
   const getProviderOrSigner = async (needSigner = false) => {
-
     const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
 
     if (window.ethereum && !connected) {
@@ -116,8 +118,8 @@ const AppProvider = ({ children }) => {
       getAccountBalance(newAcc);
       walletAddress(Middle(newAcc));
       setChainID(chainID);
-  
-    showAlert(true, "success", "Wallet connected");
+
+      showAlert(true, "success", "Wallet connected");
     } catch (error) {
       console.error(error);
     }
@@ -126,13 +128,25 @@ const AppProvider = ({ children }) => {
   const chainChangeHandler = (newChain) => {
     window.location.reload();
     setChainID(newChain);
-    showAlert(
-      true, 
-      "danger", 
-      "please switch network to goerli"
-    );
+    showAlert(true, "danger", "please switch network to goerli");
   };
 
+  const getId = (e) => {
+    let id = e.target.id;
+    if (id === "pink") {
+      console.log(id, "id pink");
+      setBackId(id);
+      console.log("back pink");
+    } else if (id === "dark") {
+      console.log(id, "id dark");
+      setBackId(id);
+      console.log("back dark");
+    } else if (id === "light") {
+      console.log(id, "id light");
+      setBackId(id);
+      console.log("back light");
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -146,6 +160,7 @@ const AppProvider = ({ children }) => {
         setLoading,
         accountChangeHandler,
         chainChangeHandler,
+        getId,
         balance,
         address,
         loading,
@@ -153,6 +168,8 @@ const AppProvider = ({ children }) => {
         chains,
         alerts,
         txAddress,
+        backIMG,
+        backId,
       }}
     >
       {children}

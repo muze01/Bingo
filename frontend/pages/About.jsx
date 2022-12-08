@@ -1,6 +1,8 @@
-import React from 'react'
+import React from "react";
+import { useGlobalContext } from "../utils/context";
 
 const About = () => {
+  const { backIMG, backId } = useGlobalContext();
 
   return (
     <section id="about" className="spaceup">
@@ -19,8 +21,9 @@ const About = () => {
             wallet, as $Bingo Token 💰 holders automatically receive a 5% fee
             from every on chain transaction that happens on the $Bingo Token 💰
             ecosystem. The community receives more $Bingo Token 💰 from the fees
-            generated on each transaction. We also have NFT's to help support our primary course, dog protection. In general our
-            community aims to spread awareness of animal adoption and this new technoloy "crypto".
+            generated on each transaction. We also have NFT's to help support
+            our primary course, dog protection. In general our community aims to
+            spread awareness of animal adoption and this new technoloy "crypto".
           </p>
         </div>
 
@@ -31,12 +34,40 @@ const About = () => {
             alt="about-pic"
             className="about-bingo"
           />
-          <div className="about-blob"></div>
-          <div className="about-blob2"></div>
+
+          {/* blob 1 */}
+          <div className="">
+            {backIMG.map((item, index) => {
+              const { color, blob } = item;
+              let wave = backId === color;
+              return (
+                wave && (
+                  <div key={index} className="">
+                    <img src={blob} alt="blob1" className="about-blob" />
+                  </div>
+                )
+              );
+            })}
+          </div>
+
+          {/* blob 2*/}
+          <div className="">
+            {backIMG.map((item, index) => {
+              const { color, blob } = item;
+              let wave = backId === color;
+              return (
+                wave && (
+                  <div key={index} className="">
+                    <img src={blob} alt="blob1" className="about-blob2" />
+                  </div>
+                )
+              );
+            })}
+          </div>
         </div>
       </main>
     </section>
   );
-}
+};
 
 export default About;

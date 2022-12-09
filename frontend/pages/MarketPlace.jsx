@@ -36,6 +36,7 @@ const MarketPlace = () => {
   const [loading4, setLoading4] = useState(false);
 
   const buyNFT = async (nftID) => {
+    
     const signer = await getProviderOrSigner(true);
     showAlert(true, "success", "processing transaction");
     await Purchase(signer, nftID);

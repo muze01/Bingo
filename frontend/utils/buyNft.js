@@ -5,12 +5,11 @@ import {
 } from "../constants";
 
 export var BUY_NFT_HASH;
-
 export const Purchase = async (
     signer, 
     nftId
     ) => {
-
+      
   const bingoNftContract = new Contract(
     BINGO_NFT_CONTRACT_ADDRESS,
     BINGO_NFT_CONTRACT_ABI,
@@ -28,11 +27,10 @@ export const Purchase = async (
       value: price,
         }
     );
-
     await tx.wait();
     BUY_NFT_HASH = tx.hash;
-
   } catch (error) {
     console.error(error);
+    window.alert("Insufficient Funds, You need to have some Goerli_Ether");
   }
 };

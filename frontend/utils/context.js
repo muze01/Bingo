@@ -134,17 +134,11 @@ const AppProvider = ({ children }) => {
   const getId = (e) => {
     let id = e.target.id;
     if (id === "pink") {
-      console.log(id, "id pink");
       setBackId(id);
-      console.log("back pink");
     } else if (id === "dark") {
-      console.log(id, "id dark");
       setBackId(id);
-      console.log("back dark");
     } else if (id === "light") {
-      console.log(id, "id light");
       setBackId(id);
-      console.log("back light");
     }
   };
 

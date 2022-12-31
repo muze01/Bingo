@@ -1,5 +1,5 @@
-import { BigNumber, ethers, Contract, providers, Signer, utils } from "ethers";
-import React, { useEffect, useRef, useState } from "react";
+import { BigNumber, Contract, utils } from "ethers";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../utils/context";
 import { DiAtom } from "react-icons/di";
 import { FaEthereum, FaTimes } from "react-icons/fa";
@@ -8,6 +8,7 @@ import {
   amountBingoTokenToPool,
   LIQUIDITY_HASH,
 } from "../utils/addLiquidity";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import {
   getBingoTokenBalance,
   getEtherBalance,
@@ -59,27 +60,24 @@ const Dex = () => {
 
   const {
     address,
-    connectWallet,
-    disconnect,
-    connected,
     showAlert,
     setLoading,
     chainID,
     chains,
     alerts,
+    isConnected,
+    isDisconnected,
     loading,
-    accountChangeHandler,
-    chainChangeHandler,
-    getProviderOrSigner,
+    web3Provider,
+    signer,
   } = useGlobalContext();
 
   useEffect(() => {
-    window.ethereum.on("accountsChanged", () => {
-      accountChangeHandler;
+    if (isConnected) {
       getAmounts();
-    });
-    window.ethereum.on("chainChanged", chainChangeHandler);
-  });
+      showAlert(true, 'success', 'wallet connected');
+    }
+  }, [isConnected])
 
   // BEGINNING OF FUNCTIONS
   const _swapTokens = async () => {
@@ -88,7 +86,6 @@ const Dex = () => {
 
       if (!swapAmountWei.eq(zero)) {
         showAlert(true, "success", "processing");
-        const signer = await getProviderOrSigner(true);
         setLoading(true);
 
         await swapTokens(
@@ -116,7 +113,6 @@ const Dex = () => {
 
   const _purchaseTokens = async (amount) => {
     try {
-      const signer = await getProviderOrSigner(true);
       showAlert(true, "success", "processing");
       setLoading(true);
 
@@ -142,11 +138,10 @@ const Dex = () => {
     try {
       const _swapAmountWEI = utils.parseEther(_swapAmount.toString());
       if (!_swapAmountWEI.eq(zero)) {
-        const provider = await getProviderOrSigner();
-        const _ethBalance = await getEtherBalance(provider, null, true);
+        const _ethBalance = await getEtherBalance(web3Provider, null, true);
         const amountOfTokens = await getAmountOfTokensReceivedFromSwap(
           _swapAmountWEI,
-          provider,
+          web3Provider,
           ethSelected,
           _ethBalance,
           reservedBingo
@@ -166,7 +161,6 @@ const Dex = () => {
       if (!addBingoTokens.eq(zero) && !addEtherWei.eq(zero)) {
         showAlert(true, "success", "processing");
 
-        const signer = await getProviderOrSigner(true);
         setLoading(true);
         await addLiquidity(signer, addBingoTokens, addEtherWei);
         setAddBingoTokens(zero);
@@ -195,7 +189,6 @@ const Dex = () => {
 
   const _removeLiquidity = async () => {
     try {
-      const signer = await getProviderOrSigner(true);
       showAlert(true, "success", "processing");
 
       const removeLPTokensWei = utils.parseEther(removeLPTokens);
@@ -232,14 +225,11 @@ const Dex = () => {
 
   const getAmounts = async () => {
     try {
-      const provider = await getProviderOrSigner(false);
-      const signer = await getProviderOrSigner(true);
-      const address = await signer.getAddress();
-      const _ethBalance = await getEtherBalance(provider, address);
-      const _bingoBalance = await getBingoTokenBalance(provider, address);
-      const _lpBalance = await getLPTokenBalance(provider, address);
-      const _reservedBingo = await getReserveOfBingoTokens(provider);
-      const _ethBalanceContract = await getEtherBalance(provider, null, true);
+      const _ethBalance = await getEtherBalance(web3Provider, address);
+      const _bingoBalance = await getBingoTokenBalance(web3Provider, address);
+      const _lpBalance = await getLPTokenBalance(web3Provider, address);
+      const _reservedBingo = await getReserveOfBingoTokens(web3Provider);
+      const _ethBalanceContract = await getEtherBalance(web3Provider, null, true);
       setEtherBalance(_ethBalance);
       setBingoBalance(_bingoBalance);
       setLPBalance(_lpBalance);
@@ -252,12 +242,11 @@ const Dex = () => {
 
   const _getTokensAfterRemove = async (_removeLPTokens) => {
     try {
-      const provider = await getProviderOrSigner();
       const removeLPTokenWei = utils.parseEther(_removeLPTokens).toString();
-      const _ethBalance = await getEtherBalance(provider, null, true);
-      const bingoTokenReserve = await getReserveOfBingoTokens(provider);
+      const _ethBalance = await getEtherBalance(web3Provider, null, true);
+      const bingoTokenReserve = await getReserveOfBingoTokens(web3Provider);
       await getTokensAfterRemove(
-        provider,
+        web3Provider,
         removeLPTokenWei,
         _ethBalance,
         bingoTokenReserve
@@ -276,7 +265,6 @@ const Dex = () => {
 
       setLoading(true);
       showAlert(true, "success", "processing");
-      const signer = await getProviderOrSigner(true);
       const contract = new Contract(
         BINGO_TOKEN_CONTRACT_ADDRESS,
         BINGO_TOKEN_CONTRACT_ABI,
@@ -309,7 +297,7 @@ const Dex = () => {
 
   // END OF FUNCTIONS
 
-  if (!connected) {
+  if (isDisconnected) {
     return (
       <section id="dex">
         <h2>bingo exchange</h2>
@@ -334,16 +322,8 @@ const Dex = () => {
                 </h4>
 
                 {/* dex connect button */}
-                <div className="connectbtn">
-                  <button
-                    className="btn btn1"
-                    onClick={async () => {
-                      connectWallet;
-                      await getAmounts();
-                    }}
-                  >
-                    {connected ? "Disconnect" : "Connect wallet"}
-                  </button>
+                <div className="connectbtn btn2">
+                  <ConnectButton />
                 </div>
               </div>
               <img
@@ -406,9 +386,9 @@ const Dex = () => {
           swap tokens & add Liquidity
         </button>
 
-        <button className="btn btnhover" onClick={disconnect}>
-          disconnect wallet
-        </button>
+        <div className="connectbtn btn2 newcont">
+          <ConnectButton />
+        </div>
       </div>
 
       <main className={`${liquidity ? "exchangecontainer container" : ""}`}>
@@ -465,7 +445,7 @@ const Dex = () => {
             })}
 
             <div className="light">
-              <h5 className="address"> {address}</h5>
+              {address ? <h5 className="address"> {address.slice(0,10)}....</h5> : ""}
               <h5 className="addressname">Address</h5>
             </div>
           </div>

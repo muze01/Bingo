@@ -1,6 +1,9 @@
 const { ethers } = require("hardhat");
 require("dotenv").config({ path: ".env" });
 
+
+   // in your front-end create a function that displays the highest current bid with the address, till it is no more..there should be a count-down clock...
+
 async function main() {
   const BingoV1 = await ethers.getContractFactory("BingoV1");
 

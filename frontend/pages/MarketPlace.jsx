@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../utils/context";
 import { Purchase, BUY_NFT_HASH } from "../utils/buyNft";
 import { CircularProgress } from "@mui/material";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const MarketPlace = () => {
   const [alerts, setAlerts] = useState({ show: true, type: "", msg: "" });
@@ -20,13 +21,9 @@ const MarketPlace = () => {
   }, [alerts.show]);
 
   const {
+    isConnected,
     address,
-    connectWallet,
-    getProviderOrSigner,
-    disconnect,
-    connected,
-    balance,
-    txAddress,
+    signer,
   } = useGlobalContext();
 
   const [loading0, setLoading0] = useState(false);
@@ -37,7 +34,6 @@ const MarketPlace = () => {
 
   const buyNFT = async (nftID) => {
     
-    const signer = await getProviderOrSigner(true);
     showAlert(true, "success", "processing transaction");
     await Purchase(signer, nftID);
   };
@@ -75,30 +71,15 @@ const MarketPlace = () => {
         </div>
 
         {/* connect btn */}
-        <div className="marketbtn">
-          {connected ? (
-            <button className="btn " onClick={() => disconnect()}>
-              disconnect wallet
-            </button>
-          ) : (
-            <button className="btn " onClick={() => connectWallet()}>
-              connect wallet
-            </button>
-          )}
+        <div className="connectbtn btn2">
+          <ConnectButton/>
         </div>
 
         {/* walletaddress */}
         <div>
           {" "}
-          {connected ? (
+          {isConnected ? (
             <div className="addressmarket">
-              <small>{address}</small>
-              <div className="marketunderline"></div>
-              <div className="marketbalance">
-                {" "}
-                <img src="./images/Ethereum-Logo-svg.png" alt="ethicon" />{" "}
-                <small>{balance}</small>
-              </div>
             </div>
           ) : (
             <div className="addressmarket">
@@ -109,11 +90,11 @@ const MarketPlace = () => {
             {BUY_NFT_HASH && (
               <small>
                 <a
-                  href={`https://testnets.opensea.io/${txAddress}`}
+                  href={`https://testnets.opensea.io/${address}`}
                   target="_blank"
                   className="hashlink"
                 >
-                  Check Your Transaction On The Block Explorer
+                  Click To Look At Your Nft On OpenSea
                 </a>
               </small>
             )}
@@ -182,7 +163,7 @@ const MarketPlace = () => {
             </div>
 
             {/* buy btn */}
-            {connected ? (
+            {isConnected ? (
               <button
                 className=" transfer-btn swapbtn newbtn"
                 onClick={async () => {
@@ -260,7 +241,7 @@ const MarketPlace = () => {
             </div>
 
             {/* buy btn */}
-            {connected ? (
+            {isConnected ? (
               <button
                 className=" transfer-btn swapbtn"
                 onClick={async () => {
@@ -337,7 +318,7 @@ const MarketPlace = () => {
             </div>
 
             {/* buy btn */}
-            {connected ? (
+            {isConnected ? (
               <button
                 className=" transfer-btn swapbtn newbtn"
                 onClick={async () => {
@@ -414,7 +395,7 @@ const MarketPlace = () => {
             </div>
 
             {/* buy btn */}
-            {connected ? (
+            {isConnected ? (
               <button
                 className=" transfer-btn swapbtn"
                 onClick={async () => {
@@ -491,7 +472,7 @@ const MarketPlace = () => {
             </div>
 
             {/* buy btn */}
-            {connected ? (
+            {isConnected ? (
               <button
                 className=" transfer-btn swapbtn"
                 onClick={async () => {

@@ -327,6 +327,9 @@ legend {
   text-align: center;
   color: var(--color-primary);
 }
+.hidden {
+  display: none;
+}
 .switch {
   position: fixed;
   transform: rotate(270deg);
@@ -980,6 +983,9 @@ article.nextSlide {
   place-content: center;
   margin-top: 3rem;
 }
+.newcont {
+  margin-bottom: 3rem;
+}
 .btn1 {
   animation: pump 4s ease-in-out infinite;
   background-color: var(--button-color);
@@ -989,6 +995,10 @@ article.nextSlide {
   color: white;
   border-top: solid 2px gray;
   border-left: solid 2px gray;
+}
+.btn2 {
+  animation: pump 4s ease-in-out infinite;
+  /* background-color: var(--button-color); */
 }
 @keyframes pump {
   0% {

@@ -4,7 +4,7 @@ const Navbar = () => {
   const [activeNav, setActiveNav] = useState("#");
 
   return (
-    <nav className="nav-container">
+    <nav className={ "nav-container"}>
       <main className="nav-center">
         {/* logo */}
         <div className="logo">
@@ -76,5 +76,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;
